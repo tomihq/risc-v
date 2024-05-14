@@ -21,3 +21,4 @@ _start:
     li a7, 93       # Cargamos el código de la llamada al sistema para salir del programa
     li a0, 0        # Cargamos el código de retorno 0
     ecall           # Realizamos la llamada al sistema
+    r

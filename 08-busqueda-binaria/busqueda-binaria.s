@@ -1,8 +1,8 @@
-#OJO: No funciona si la cantidad de elementos es IMPAR.
-#OJO2: No funciona en buscar al ultimo elemento. 
+#Funciona para listas pares o impares
+#No funciona nunca para el ultimo caso (caso borde).
 .data
     array: .word 1, 3, 5, 7
-    target: .word 7
+    target: .word 5
     n: .word 4
 .text
 la a0, array

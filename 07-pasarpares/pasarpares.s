@@ -7,7 +7,7 @@
     la a1, q #Esto es algo simbólico, a1 ya deberia tener q por enunciado.
     lw a2, l #Esto es algo simbólico, a2 ya deberia tener el largo por enunciado.
     li t0, 0 #Incrementador inicializo en 0
-    li t3, 1 #Para hacer las comparaciones de si es impar (no existe un beqi)
+    li t3, 1 #Para hacer las comparaciones de si es impar (no existe un beqi), equiv 0x1
     loop:
         bge t0, a2, fin #Si ya no hay mas elementos (el incrementador es el largo) salgo
         lw t1, 0(a1) #Cargo temporalmente el primer elemento de la lista a1 para ver si es par/impar.

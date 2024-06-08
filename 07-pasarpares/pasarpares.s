@@ -7,12 +7,12 @@
     la a1, q #Esto es algo simbólico, a1 ya deberia tener q por enunciado.
     lw a2, l #Esto es algo simbólico, a2 ya deberia tener el largo por enunciado.
     li t0, 0 #Incrementador inicializo en 0
-    li a5, 1 #Para hacer las comparaciones de si es impar (no existe un beqi)
+    li t3, 1 #Para hacer las comparaciones de si es impar (no existe un beqi)
     loop:
         bge t0, a2, fin #Si ya no hay mas elementos (el incrementador es el largo) salgo
         lw t1, 0(a1) #Cargo temporalmente el primer elemento de la lista a1 para ver si es par/impar.
         andi t2, t1, 1 #Uso mascara #0x1 para validar si el numero es par o impar (LSB = 1 impar)
-        beq t2, a5, impar #Si es impar, entonces salto a impar para que me pise el valor de t1 a guardar
+        beq t2, t3, impar #Si es impar, entonces salto a impar para que me pise el valor de t1 a guardar
         j loopCiclo #Si es par, salto de una a almacenar ese valor
      impar:
         li t1, 0 #Como es impar, entonces piso el valor almacenado en t1 y lo reemplazo por 0

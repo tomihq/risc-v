@@ -1,6 +1,4 @@
-Ejercicio 1) Se cuenta con cuatro datos de un byte cada uno almacenados en el registro s0 y
-queremos saber cuántos de esos datos son pares. Escriba un programa de ensamblador RISC V que
-realice esta operación y almacene el resultado en el registro a0.
+#Ejercicio 1) Se cuenta con cuatro datos de un byte cada uno almacenados en el registro s0 y queremos saber cuántos de esos datos son pares. Escriba un programa de ensamblador RISC V que realice esta operación y almacene el resultado en el registro a0.
 
 .text
     li s0, 0x37A2F011
@@ -11,25 +9,25 @@ realice esta operación y almacene el resultado en el registro a0.
     empieza:
             and t3, t0, t2
             andi t3, t3, 1
-            beq t3, t4, sigouno
+            beq t3, t4, sigouno #si es impar no sumo nada.
                 addi t1, t1, 1
     sigouno:
             srli t0, t0, 8
             and t3, t0, t2
             andi t3, t3, 1
-            beq t3, t4, sigodos
+            beq t3, t4, sigodos #si es impar no sumo nada.
                 addi t1, t1, 1
     sigodos:
             srli t0, t0, 8
             and t3, t0, t2
             andi t3, t3, 1
-            beq t3, t4, sigotres
+            beq t3, t4, sigotres #si es impar no sumo nada.
                 addi t1, t1, 1
     sigotres:
             srli t0, t0, 8
             and t3, t0, t2
             andi t3, t3, 1
-            beq t3, t4, sigocuatro
+            beq t3, t4, sigocuatro #si es impar no sumo nada.
                 addi t1, t1, 1
     sigocuatro:
             mv a0, t1 #espero 2

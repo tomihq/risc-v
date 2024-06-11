@@ -1,34 +1,29 @@
-#Funciona para listas pares o impares
-#No funciona nunca para el ultimo caso (caso borde).
 .data
-    array: .word 1, 3, 5, 7
-    target: .word 5
-    n: .word 4
+    target: .word 3
+    arr: .word 1, 3, 4, 7
+    l: .word 4
 .text
-    la a0, array
+    la a0, arr
     lw a1, target
-    lw t0, n #elementos en arr
-    li t1, 0 #izq
-    addi t2, t0, -1 #der
-    li t3, 2 #para dividir y partir la lista al medio
-    li a3, 4 #para saltar las posiciones en el array y evaluar en la copia
-loop:
-    beq t5, a1, fin #si el valor del array es igual al buscado, salgo
-    bge t1, t2, fin #si izq es mayor o igual a der salgo
-    add t4, t1, t2 # izq + der
-    div t4, t4, t3 # (izq + der) / 2
-    mv t6, t4 #guardo medio
-    mul t5, t4, a3 #muevo offset (para saber cant)
-    mv a4, a0 #guardo arr anterior (lo copio)
-    add a4, a4, t5 #muevo offset de arr copia
-    lw t5, 0(a4) #accedo a la copia del arr, en medio
-    blt a1, t5, menor
-    mv t1, t4 #izq = medio
-    j loop
-menor:
-    mv t2, t4 #der = medio
-    j loop
-fin:
-    mv a2, t4 #muevo el resultado a a2
-
-        
+    lw a2, l
+    li t0, 0
+    li t1, 1
+    sub t1, a2, t4
+    li a3, 4
+    li a4, 0
+    loop: 
+        add t2, t0, t1
+        srli t2, t2, 1 #la respuesta esta aca, es mid
+        mul t3, t2, a3 
+        mv a6, a0
+        add a6, a6, t3
+        lw t4, 0(a6)
+        beq a1, t4, fin
+        blt a1, t4, menor
+        addi t0, t2, 1
+        j loop
+    menor: 
+        addi t1, t2, -1
+        j loop
+    fin: 
+        ecall

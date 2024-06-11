@@ -1,34 +1,28 @@
-#Funciona para listas pares o impares
-#No funciona nunca para el ultimo caso (caso borde).
 .data
-    array: .word 1, 3, 5, 7
-    target: .word 5
-    n: .word 4
+    target: .word 3
+    arr: .word 1, 3, 4, 7
+    l: .word 4
 .text
-    la a0, array
-    lw a1, target
-    lw t0, n #elementos en arr
-    li t1, 0 #izq
-    addi t2, t0, -1 #der
-    li t3, 2 #para dividir y partir la lista al medio
-    li a3, 4 #para saltar las posiciones en el array y evaluar en la copia
-loop:
-    beq t5, a1, fin #si el valor del array es igual al buscado, salgo
-    bge t1, t2, fin #si izq es mayor o igual a der salgo
-    add t4, t1, t2 # izq + der
-    div t4, t4, t3 # (izq + der) / 2
-    mv t6, t4 #guardo medio
-    mul t5, t4, a3 #muevo offset (para saber cant)
-    mv a4, a0 #guardo arr anterior (lo copio)
-    add a4, a4, t5 #muevo offset de arr copia
-    lw t5, 0(a4) #accedo a la copia del arr, en medio
-    blt a1, t5, menor
-    mv t1, t4 #izq = medio
-    j loop
-menor:
-    mv t2, t4 #der = medio
-    j loop
-fin:
-    mv a2, t4 #muevo el resultado a a2
-
-        
+        la a0, arr #array
+        lw a1, target #objetivo
+        lw a2, l #largo
+        li t0, 0 #izq
+        li t1, 1
+        sub t1, a2, t4 #der
+        li a3, 4 #para ir multiplicando (longitud de la palabra)
+    loop: 
+        add t2, t0, t1 #(izq + der)
+        srli t2, t2, 1 #la respuesta esta aca, es mid. (izq+der)/2
+        mul t3, t2, a3 # t3 = indice * longitudAPalabra (a la palabra que tengo que moverme)
+        mv a6, a0 #copio el array porque sino al moverme, no puedo volver.
+        add a6, a6, t3 #muevo el puntero de mi copia del array, tantas palabras como sea necesario
+        lw t4, 0(a6) #leo la primera palabra del array (habiendo movido el puntero)
+        beq a1, t4, fin #si el elemento que esta en el array es el que queria, voy a fin
+        blt a1, t4, menor #si el elemento que quiero buscar es menor al del array, salto a menor
+            addi t0, t2, 1 #ESTE ES EL CASO DEL IF TRUE. Como se que mi elemento es mayor al del array entonces tengo que moverme a la izquierda
+            j loop
+    menor: 
+        addi t1, t2, -1 #CASO DEL IF FALSE = ELSE. como se que mi elemento es menor al del array, entonces tengo que ir achicando el array desde la derecha.
+        j loop
+    fin: 
+        ecall

@@ -10,7 +10,7 @@
     li t4, 0
     mv t5, t0
     ciclo:
-        beq t4, t1, finPosta
+        beq t4, t1, compararConLargo
         lh t6, 0(t5)
         slli t6, t6, 16
         srli t6, t6, 16
@@ -22,12 +22,15 @@
             addi t5, t5, 2
             addi t4, t4, 1
             j ciclo
-    finPosta:
+    compararConLargo:
         li a2, 2
         div t1, t1, a2
         blt t1, t2, devolverCero
-         li a0, 1
-         ecall
+        li a0, 1
+        j finPrograma
      devolverCero:
          li a0, 0
+         j finPrograma
+     finPrograma:
+         li a7, 10
          ecall

@@ -4,10 +4,11 @@
     largo: .byte 4
 .text
     la t0, mediciones
-    lw t1, largo
+    lb t1, largo
     li t2, 0
     li t3, 0x00000F00
     li t4, 0
+    mv t5, t0
     ciclo:
         beq t4, t1, finPosta
         lh t6, 0(t5)
@@ -24,9 +25,9 @@
     finPosta:
         li a2, 2
         div t1, t1, a2
-        blt t1, t2, devolverUno
-         li a0, 0
-         ecall
-     devolverUno:
+        blt t1, t2, devolverCero
          li a0, 1
+         ecall
+     devolverCero:
+         li a0, 0
          ecall
